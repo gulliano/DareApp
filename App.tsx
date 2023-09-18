@@ -1,25 +1,53 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React from 'react';
+import {
+  SafeAreaView,
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  StatusBar,
+} from 'react-native';
+import { useSelector } from 'react-redux';
+import ItemCategory from './component/ItemCategory';
 
-import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment } from './redux/counter' // action creator
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const App = () => {
+import styles from './styles';
+import DareOrTruth from './screens/DareOrTruth';
+import { Header } from 'react-native/Libraries/NewAppScreen';
 
-  const count = useSelector((state) => state.counter.value) // read the store
 
-  const dispatch = useDispatch() // write in the store
+const Stack = createNativeStackNavigator();
+
+const HomeScreen = () => {
+  
+  const categories = useSelector(state => state.category)
+
 
   return (
-    <View>
-      <Text>nb {count}</Text>
-      <Button title='Increment' onPress={() => dispatch(increment())} />
-      <Icon name="music" color="#4F8EF7" />
-    </View>
-  )
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={categories}
+        renderItem={({item}) => <ItemCategory id={item.id} name={item.name} />}
+        keyExtractor={item => item.id}
+      />
+    </SafeAreaView>
+  );
+};
+
+
+const  App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown:false}}>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Dareortruth" component={DareOrTruth} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
-export default App
 
-const styles = StyleSheet.create({})
+
+export default App;
