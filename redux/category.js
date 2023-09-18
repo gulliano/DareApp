@@ -1,18 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initState = [{ id: 1 ,  name: "Gage entre amis" },
-                    { id: 2 , name : "A distance hot"},
-                    { id: 3 , name : "Couple"}] ;
+const initState = [] ;
 
 export const category = createSlice({
     name:"category" ,
     initialState: initState,
     reducers: {
-        add:(state) => {
-            return state  ;
+        add:(state, action) => {
+
+          //  console.log("state" , 
+            return action.payload  ;
         }
     }
 })
+
+
+export const { add } = category.actions ;
 
 export default category.reducer ;
     
