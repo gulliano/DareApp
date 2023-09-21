@@ -1,18 +1,23 @@
-import { View, Text, SafeAreaView, FlatList } from 'react-native';
+import {  SafeAreaView } from 'react-native';
 import React, { useEffect } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { add } from './redux/category';
-import ItemCategory from './component/ItemCategory';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import DareOrTruth from './screens/DareOrTruth';
+import Home from './screens/Home';
+import ShowDareOrTruth from './screens/ShowDareOrTruth';
+
+
+
+const Stack = createNativeStackNavigator() ;
 
 const App = () => {
 
-    const dispatch = useDispatch() ;
+  const dispatch = useDispatch() ;
 
-    // lecture des categories dans le store
-    const storeCategory = useSelector(state => state.category) ;
-
-   const loadDbApp = async () => {
+  const loadDbApp = async () => {
 
         const categories = await  firestore().collection('category').get() ;
           
@@ -45,14 +50,14 @@ const App = () => {
     },[])
 
   return (
-        <SafeAreaView>
-            <FlatList 
-                data={storeCategory}
-                renderItem={({item})=><ItemCategory data={item}/>}
-                keyExtractor={item=>item.id}
-                />
-            
-        </SafeAreaView>
+   <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown:false}}>
+            <Stack.Screen name='Home' component={Home} />
+            <Stack.Screen name='DareOrTruth' component={DareOrTruth} />
+            <Stack.Screen name='ShowDareOrTruth' component={ShowDareOrTruth} />
+        </Stack.Navigator>
+
+   </NavigationContainer>
   )
 }
 
