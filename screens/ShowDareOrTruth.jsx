@@ -15,6 +15,8 @@ const ShowDareOrTruth = ({route, navigation}) => {
 
   const [monText , setMonText] = useState('') ;
 
+  const { id , type } = route.params ;
+
   //  fonction retour
    const goBack = () => { 
     
@@ -25,16 +27,22 @@ const ShowDareOrTruth = ({route, navigation}) => {
 
     const loadData = async () => { 
 
-      const snapData = await firestore().collection('DareOrTruth').get() ;
+      const snapData = await firestore().collection('DareOrTruth')
+                                        .where('category','==', id)
+                                        .get() ;
 
      // console.log("snapData" , snapData.empty) ;
 
       if(!snapData.empty){
 
-        const datas = snapData.docs.map(doc=>{
+        let datas = snapData.docs.map(doc=>{
           return { id:doc.id , ...doc.data()} ;
         })
 
+
+        // filtre action ou vérité
+
+       datas = datas.filter(item=>item.type == type) ;
       
         // génération d'un index 
        const index = getRandomInt(0, datas.length  )
@@ -50,14 +58,14 @@ const ShowDareOrTruth = ({route, navigation}) => {
 
       loadData() ;
 
-     })
+     },[])
 
 
   return (
     <View>
       <Text>{ monText }</Text>
       <Button onPress={goBack} >Retour</Button>
-      <Button onPress={loadData} >loadData</Button>
+      <Button onPress={loadData} >Next</Button>
     </View>
   )
 }

@@ -2,6 +2,7 @@ import { View, Text, FlatList } from 'react-native'
 import React from 'react'
 import ItemCategory from '../component/ItemCategory'
 import { useSelector } from 'react-redux'
+import Empty from '../component/Empty'
 
 const Home = () => {
 
@@ -15,6 +16,7 @@ const Home = () => {
                 data={categories}
                 renderItem={({item}) => <ItemCategory  data={item} />}
                 keyExtractor={item => item.id} 
+                ListEmptyComponent={<Empty />}
 
                 
         
