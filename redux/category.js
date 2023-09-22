@@ -6,7 +6,7 @@ export const category = createSlice({
     name:"category" ,
     initialState: initState,
     reducers: {
-        add:(state, action) => {
+        addCategory:(state, action) => {
 
           //  console.log("state" , 
             return action.payload  ;
@@ -15,7 +15,7 @@ export const category = createSlice({
 })
 
 
-export const { add } = category.actions ;
+export const { addCategory } = category.actions ;
 
 export default category.reducer ;
     

@@ -1,14 +1,14 @@
-import {  SafeAreaView } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import firestore from '@react-native-firebase/firestore';
 import { useDispatch} from 'react-redux';
-import { add } from './redux/category';
+import { addCategory } from './redux/category';
+import { addDareOrTruth } from './redux/dareOrTruth';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import DareOrTruth from './screens/DareOrTruth';
 import Home from './screens/Home';
 import ShowDareOrTruth from './screens/ShowDareOrTruth';
 import { ActivityIndicator } from 'react-native-paper';
+import { loadData } from './commonjs/function';
 
 
 
@@ -22,27 +22,35 @@ const App = () => {
 
   const loadDbApp = async () => {
 
-        const categories = await  firestore().collection('category').get() ;
+       // const categories = await  firestore().collection('category').get() ;
           
+       const categories = await loadData('category') ;
 
+ 
         // vérification des données 
-        if(!categories.empty){
-
-            const dataCategories = categories.docs.map(doc=>{
-
-                                        return { id:doc.id , ...doc.data() }
-
-                                    })
-                
+        if(categories.length > 0 ){           
+            
          // enregistrement des categories dans le store ; 
-          dispatch(add(dataCategories)) ;
-
-          setTimeout(()=>{
-
-            setLoading(false)
-
-          },3600) ;
+          dispatch(addCategory(categories)) ;
+       
         }
+/*
+        const dareOrTruthDatas  = await loadData('DareOrTruth') ;
+        
+         // vérification des données 
+         if(dareOrTruthDatas.length > 0 ){           
+            
+          // enregistrement  dans le store ; 
+           dispatch(addDareOrTruth(dareOrTruthDatas)) ;
+        
+         }*/
+
+
+        setTimeout(()=>{
+
+          setLoading(false)
+
+        },3600) ;
 
        
        

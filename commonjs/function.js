@@ -1,24 +1,25 @@
-import { add } from '../redux/category';
+
 import firestore from '@react-native-firebase/firestore';
 
 
-export const loadDbApp = async () => {
+export const loadData = async (collectionName) => {
 
-    const categories = await  firestore().collection('category').get() ;
+    const snapShot = await  firestore().collection(collectionName).get() ;
       
 
     // vérification des données 
-    if(!categories.empty){
+    if(!snapShot.empty){
 
-        const dataCategories = categories.docs.map(doc=>{
+        const datas = snapShot.docs.map(doc=>{
 
                                     return { id:doc.id , ...doc.data() }
 
                                 })
             
-     // enregistrement des categories dans le store ; 
-      dispatch(add(dataCategories)) ;
 
+            return datas;
+    }else{
+        return [] ;
     }
    
    
