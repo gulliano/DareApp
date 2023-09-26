@@ -38,10 +38,19 @@ export const player = createSlice({
  
             return initState ;
         },
+        nextPlayer:(state,action) =>{
+
+            console.log("action.payload" , action.payload)
+
+            const newState = { ...state , position: action.payload  }
+
+            return newState ;
+
+        },
     }
 
 })
 
-export const {  addPlayer, delPlayer , resetPlayer } = player.actions ;
+export const {  addPlayer, delPlayer , resetPlayer , nextPlayer } = player.actions ;
 
 export default player.reducer;
