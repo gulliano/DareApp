@@ -6,6 +6,7 @@ import ItemPlayer from '../component/player/ItemPlayer';
 import EmptyPlayer from '../component/player/EmptyPlayer';
 import AddPlayer from '../component/player/AddPlayer';
 import ResetPlayer from '../component/player/ResetPlayer';
+import StartGame from '../component/button/StartGame';
 
 const Players = () => {
 
@@ -24,6 +25,7 @@ const Players = () => {
         ListHeaderComponent={AddPlayer}
 
       />
+      <StartGame />
       <ResetPlayer />
      
     </View>

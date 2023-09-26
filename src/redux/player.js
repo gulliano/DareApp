@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const initState = {
-                players  : [],
+                players  : [{id:1,name : 'gulliano 0'},
+                            {id:2,name : 'gulliano 1'},
+                            {id:3,name : 'gulliano 2'},
+                            {id:4,name : 'gulliano 3'}],
                 position : 0 ,
 }
 
@@ -32,7 +35,7 @@ export const player = createSlice({
         },
        resetPlayer:(state,action)=>{ //  vide la liste
 
-       // console.log('nou ka vidé sa')
+ 
             return initState ;
         },
     }
