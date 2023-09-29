@@ -22,9 +22,7 @@ const NextPlayer = ({id}) => {
       dispatch(nextPlayer( position + 1 )) ; 
 
     }
-    navigation.navigate('truthordare' , { id : id })
-    
-    
+    navigation.navigate('truthordare' , {id: id })
 
    }
 

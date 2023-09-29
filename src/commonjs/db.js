@@ -25,3 +25,39 @@ export const loadData = async (collectionName) => {
    
 
 }
+
+/***************
+ * * 
+ * *
+ * * params( id<string> : id category)
+ * */
+
+export const loadDataDareOrTruth = async (id) => {
+
+    console.log("loadDataDareOrTruth" , id) ; 
+
+    const snapShot = await  firestore()
+                                    .collection("DareOrTruth")
+                                    .where('category',"==",id) 
+                                    .get() ;
+      
+
+    // vérification des données 
+    if(!snapShot.empty){
+
+        const datas = snapShot.docs.map(doc=>{
+
+                                    return { id:doc.id , ...doc.data() }
+
+                                })
+            
+
+            return datas;
+    }else{
+        return [] ;
+    }
+
+
+
+
+}
