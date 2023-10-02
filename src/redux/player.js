@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const initState = {
-                players  : [{id:1,name : 'gulliano 0'},
+                players  : [{id:1,name : 'gulliano 0' , deja: [12, 31 , ]},
                             {id:2,name : 'gulliano 1'},
                             {id:3,name : 'gulliano 2'},
                             {id:4,name : 'gulliano 3'}],
