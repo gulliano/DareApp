@@ -19,6 +19,7 @@ const ItemCategory = ({category}) => {
             />
             )*/
 
+        
 
             return (
                 <View style={[
@@ -29,9 +30,11 @@ const ItemCategory = ({category}) => {
                 
                             ]}>
                   <Text style={styles.slideTitle}>{category.name}</Text>
-                 <Image source={{uri: category.image}}  style={styles.slideImage}  /> 
+                  <Image source={{uri: category.image}}  style={styles.slideImage}  /> 
                   <Text style={styles.slideText}>{category.description}</Text>
-                 
+                  <Button contentStyle={{backgroundColor:"red"}}  mode="contained" onPress={() =>  navigation.navigate('truthordare' , {id: category.id})}>
+                        Press me
+                        </Button>
                 </View>
               );
 };
