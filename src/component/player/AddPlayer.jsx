@@ -18,6 +18,7 @@ const AddPlayer = () => {
         const newPlayer = {
             id      : Date.now() ,
             name    : value ,
+            tod     : [] , 
         }
      
         //

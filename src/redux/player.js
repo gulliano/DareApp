@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const initState = {
-                players  : [{id:1,name : 'gulliano 0'},
-                            {id:2,name : 'gulliano 1'},
-                            {id:3,name : 'gulliano 2'},
-                            {id:4,name : 'gulliano 3'}],
+                players  : [{id:1,name : 'gulliano 0',tod:[]},
+                            {id:2,name : 'gulliano 1',tod:[]},
+                            {id:3,name : 'gulliano 2',tod:[]},
+                            {id:4,name : 'gulliano 3',tod:[]}],
                 position : 0 ,
 }
 
@@ -47,10 +47,20 @@ export const player = createSlice({
             return newState ;
 
         },
+        updateTod : (state , action  ) =>{
+          //  console.log("prev state" , state ) ;
+            console.log("action.payload" ,action.payload )
+ //console.log('first ' , state.players[state.position].tod)
+           state.players[state.position].tod.push(action.payload);
+           // console.log('next state' , state )
+
+
+
+        } ,
     }
 
 })
 
-export const {  addPlayer, delPlayer , resetPlayer , nextPlayer } = player.actions ;
+export const {  addPlayer, delPlayer , resetPlayer , nextPlayer , updateTod } = player.actions ;
 
 export default player.reducer;
