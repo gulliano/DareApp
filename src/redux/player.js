@@ -48,14 +48,9 @@ export const player = createSlice({
 
         },
         updateTod : (state , action  ) =>{
-          //  console.log("prev state" , state ) ;
-            console.log("action.payload" ,action.payload )
- //console.log('first ' , state.players[state.position].tod)
+            
            state.players[state.position].tod.push(action.payload);
-           // console.log('next state' , state )
-
-
-
+       
         } ,
     }
 

@@ -34,12 +34,13 @@ export const loadData = async (collectionName) => {
 
 export const loadDataDareOrTruth = async (id , type) => {
 
-    console.log("loadDataDareOrTruth" , id) ; 
+ 
 
+   
     const snapShot = await  firestore()
-                                    .collection("DareOrTruth")
-                                
-                                    .where("id" , "not-in" , "bEqzZTLvrGUQew8mQARU")
+                                    .collection("DareOrTruth")   
+                                    .where("category" , '==' , id)
+                                    .where("type" , "==" , type)
                                     .get() ;
       
 
@@ -50,10 +51,10 @@ export const loadDataDareOrTruth = async (id , type) => {
 
                                     return { id:doc.id , ...doc.data() }
 
-                                })
+                                }).filter(item => item.category==id)
             
-
-            return datas;
+ //console.log('datas' , datas.filter(item => item.type == type)) ;
+        return datas
     }else{
         return [] ;
     }
@@ -62,3 +63,44 @@ export const loadDataDareOrTruth = async (id , type) => {
 
 
 }
+
+
+/***************
+ * * 
+ * *
+ * * params( id<string> : id category)
+ * */
+
+export const loadDataDareOrTruthTod = async (id , type, tod) => {
+
+    console.log("tod" , tod) ; 
+ 
+    
+     const snapShot = await  firestore()
+                                     .collection("DareOrTruth")   
+                                     .where("category" , '==' , id)
+                                     .where("type" , "==" , type)
+                                     .where(firestore.FieldPath.documentId(),'not-in' , tod)
+                                     .get() ;
+       
+ 
+     // vérification des données 
+     if(!snapShot.empty){
+ 
+         const datas = snapShot.docs.map(doc=>{
+ 
+                                     return { id:doc.id , ...doc.data() }
+ 
+                                 }).filter(item => item.category==id)
+             
+  //console.log('datas' , datas.filter(item => item.type == type)) ;
+         return datas
+     }else{
+         return [] ;
+     }
+ 
+ 
+ 
+ 
+ }
+ 

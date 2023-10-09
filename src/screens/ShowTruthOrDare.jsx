@@ -2,14 +2,14 @@ import { View, Text } from 'react-native'
 import React, { useEffect , useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux' ;
 import NextPlayer from '../component/button/NextPlayer'
-import { loadDataDareOrTruth } from '../commonjs/db';
+import { loadDataDareOrTruth, loadDataDareOrTruthTod } from '../commonjs/db';
 import { getRandomIndex } from '../commonjs/function';
 import { updateTod } from '../redux/player';
 
 
 const ShowTruthOrDare = ({route}) => {
 
-  const { id } = route.params ;
+  const { id, type} = route.params ;
 
   const dispatch = useDispatch() ;
 
@@ -20,17 +20,34 @@ const ShowTruthOrDare = ({route}) => {
 
   const loadDareOrTruth = async() => { 
      
-    //console.log("load") ;
+   // console.log("players" , players[position].tod) ;
+      const { tod } =   players[position] ;
 
-      const dataTruthOrDare = await  loadDataDareOrTruth(id,type) ;
-     // console.log("dataTruthOrDare" , dataTruthOrDare) ; 
-      const index = getRandomIndex(0, dataTruthOrDare.length);
-     //  console.log(index)
+      if ( tod.length ==0  ){
 
-     setShowtod( dataTruthOrDare[index]) ;
+        const dataTruthOrDare = await  loadDataDareOrTruth(id,type )  ;
+     
+        const index = getRandomIndex(0, dataTruthOrDare.length);
+     
+  
+        setShowtod( dataTruthOrDare[index]) ;
+  
+       // enregistrement du tod du player dans le store 
+        dispatch(updateTod(dataTruthOrDare[index].id))
 
-     // enregistrement du tod du player dans le store 
-      dispatch(updateTod(dataTruthOrDare[index].id))
+      }else{
+
+        const dataTruthOrDare = await  loadDataDareOrTruthTod(id,type, tod )  ;
+     
+        const index = getRandomIndex(0, dataTruthOrDare.length);
+     
+  
+        setShowtod( dataTruthOrDare[index]) ;
+  
+       // enregistrement du tod du player dans le store 
+        dispatch(updateTod(dataTruthOrDare[index].id))
+      }
+     
        
       
 
